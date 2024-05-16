@@ -7,18 +7,23 @@
 
 describe("Test Suite 3", () => {
   beforeEach(() => {
-    //Optional
+    cy.visit("https://www.pawshake.com.sg/");
   });
 
-  it("Test Case 1", () => {
-    //Write your automation script here for Test Case 1
-  });
+  it("Check Search function works as expected", () => {
+    // Enter search criteria
+    cy.get('.sc-3d79569-0 .select').click();
+    cy.get(".min-w-0").contains("Dog Walking").click()
+    cy.get('.fresnel-greaterThanOrEqual-md > button.w-full > .rt-TextFieldRoot > .rt-reset').click();
+    cy.get('.rdp-caption_start > .rdp-table > .rdp-tbody > :nth-child(4) > :nth-child(3) > .rdp-button_reset').click();
+    cy.get(".sc-39165724-3 > .rt-TextFieldRoot > .rt-TextFieldInput").type("One-north");
+    cy.contains("#ex-list-item-2 > strong", "One-North Link").click();
 
-  it("Test Case 2", () => {
-    //Optional
-  });
+    // Perform search
+    cy.get(':nth-child(4) > .sc-dcd0d8ed-0').click();
 
-  it("Test Case 3", () => {
-    //Optional
+    // Verify search results
+    cy.contains("Dog Walking").should("exist");
+    cy.get('.flex.fresnel-greaterThanOrEqual-md > :nth-child(2) > .sc-39165724-3 > .rt-TextFieldRoot > .rt-reset').should("have.value", "One-North Link, Singapore");
   });
 });
